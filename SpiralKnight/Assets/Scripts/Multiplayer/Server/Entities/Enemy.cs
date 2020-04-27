@@ -18,8 +18,7 @@ namespace Multiplayer.Server.Entities
 
         public override void Die()
         {
-            ServerSend.Destroy(this);
-            Destroy(gameObject);
+            Destroy();
         }
 
         protected override void EachTick()
