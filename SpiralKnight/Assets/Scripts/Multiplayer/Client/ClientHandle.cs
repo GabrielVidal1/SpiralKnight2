@@ -35,8 +35,9 @@ namespace Multiplayer.Client
             int _id = _packet.ReadInt();
             Vector3 _position = _packet.ReadVector3();
             Quaternion _rotation = _packet.ReadQuaternion();
-
-            GameManager.instance.SpawnEnemy(_id, _position, _rotation);
+            float _maxHealth = _packet.ReadFloat();
+            
+            GameManager.instance.SpawnEnemy(_id, _position, _rotation, _maxHealth);
         }
 
         public static void ProjectileSpawn(Packet _packet)

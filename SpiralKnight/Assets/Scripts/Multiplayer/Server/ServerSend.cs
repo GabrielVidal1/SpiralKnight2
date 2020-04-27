@@ -123,6 +123,7 @@ namespace Multiplayer.Server
                 _packet.Write(_enemy.id);
                 _packet.Write(_enemy.transform.position);
                 _packet.Write(_enemy.transform.rotation);
+                _packet.Write(_enemy.maxHealth);
 
                 SendTCPDataToAll(_packet);
             }

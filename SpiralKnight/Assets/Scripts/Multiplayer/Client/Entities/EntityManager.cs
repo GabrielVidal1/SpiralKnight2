@@ -6,7 +6,7 @@ namespace Multiplayer.Client.Entities
     public abstract class EntityManager : DestroyableManager
     {
         public float health;
-        public float maxHealth = 100f;
+        public float maxHealth;
 
         
         [SerializeField] private MeshRenderer cylinder;
@@ -16,8 +16,10 @@ namespace Multiplayer.Client.Entities
         
         [SerializeField] private Transform mesh;
 
-        public override void Initialize(int _id)
+        public void Initialize(int _id, float _maxHealth)
         {
+            maxHealth = _maxHealth;
+            
             base.Initialize(_id);
             
             health = maxHealth;

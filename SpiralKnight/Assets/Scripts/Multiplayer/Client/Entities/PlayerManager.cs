@@ -14,8 +14,10 @@ namespace Multiplayer.Client.Entities
     
         public void Initialize(int _id, string _username, bool isLocalPlayer)
         {
-            base.Initialize(_id);
+            maxHealth = 100f;
             
+            base.Initialize(_id);
+
             username = _username;
 
             if (!isLocalPlayer)

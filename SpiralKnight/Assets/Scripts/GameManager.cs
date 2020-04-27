@@ -67,10 +67,10 @@ public class GameManager : MonoBehaviour
             Multiplayer.Server.Server.Stop();
     }
 
-    public void SpawnEnemy(int _id, Vector3 _position, Quaternion rotation)
+    public void SpawnEnemy(int _id, Vector3 _position, Quaternion _rotation, float _maxHealth)
     {
-        EnemyManager _enemy = Instantiate(enemyPrefab, _position, rotation);
-        _enemy.Initialize(_id);
+        EnemyManager _enemy = Instantiate(enemyPrefab, _position, _rotation);
+        _enemy.Initialize(_id, _maxHealth);
         
         entities.Add(_id, _enemy);
         destroyables.Add(_id, _enemy);
