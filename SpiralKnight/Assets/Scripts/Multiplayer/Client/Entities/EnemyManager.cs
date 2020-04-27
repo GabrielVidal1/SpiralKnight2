@@ -11,11 +11,6 @@ namespace Multiplayer.Client.Entities
 
         private NavMeshAgent _agent;
 
-        public void Spawn(Vector3 _position)
-        {
-        
-        }
-
         protected override void HealthChangeHook()
         {
             HealthBar.value = health / maxHealth;
