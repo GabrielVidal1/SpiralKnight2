@@ -18,6 +18,8 @@ namespace Multiplayer.Client.Entities
 
         public override void Destroy()
         {
+            GameManager.entities.Remove(id);
+
             Destroy(gameObject);
         }
     }

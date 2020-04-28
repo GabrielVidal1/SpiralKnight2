@@ -80,7 +80,8 @@ namespace Multiplayer.Client
             int _id = _packet.ReadInt();
             float _health = _packet.ReadFloat();
 
-            GameManager.entities[_id].SetHealth(_health);
+            if (GameManager.entities.ContainsKey(_id))
+                GameManager.entities[_id].SetHealth(_health);
         }
 
         public static void EntityAttack(Packet _packet)
