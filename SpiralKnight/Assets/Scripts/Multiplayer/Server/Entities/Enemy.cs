@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Multiplayer.Client.Entities;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,6 +10,7 @@ namespace Multiplayer.Server.Entities
     public class Enemy : Entity
     {
         private NavMeshAgent _agent;
+        private Transform _target;
         
         public override void Initialize(float _maxHealth)
         {
@@ -23,9 +25,15 @@ namespace Multiplayer.Server.Entities
 
         protected override void EachTick()
         {
-            Vector3 pos = GameManager.players.Values.ToList()[0].transform.position;
-            _agent.SetDestination(pos);
+            if (_target == null) return;
+            
+            _agent.SetDestination(_target.position);
             direction = transform.forward;
+        }
+
+        public void SetTarget(Entity _player)
+        {
+            _target = _player.transform;
         }
     }
 }
