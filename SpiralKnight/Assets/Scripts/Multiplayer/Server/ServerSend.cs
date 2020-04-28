@@ -121,6 +121,7 @@ namespace Multiplayer.Server
             using (Packet _packet = new Packet((int) ServerPackets.spawnEnemy))
             {
                 _packet.Write(_enemy.id);
+                _packet.Write((int)_enemy.enemyType);
                 _packet.Write(_enemy.transform.position);
                 _packet.Write(_enemy.transform.rotation);
                 _packet.Write(_enemy.maxHealth);

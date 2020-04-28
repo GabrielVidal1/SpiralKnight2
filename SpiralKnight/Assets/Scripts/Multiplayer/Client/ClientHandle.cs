@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Multiplayer.Server.Entities;
 using UnityEngine;
 
 namespace Multiplayer.Client
@@ -33,11 +34,14 @@ namespace Multiplayer.Client
         public static void SpawnEnemy(Packet _packet)
         {
             int _id = _packet.ReadInt();
+            
+            Enemy.Type _type = (Enemy.Type)_packet.ReadInt();
+            
             Vector3 _position = _packet.ReadVector3();
             Quaternion _rotation = _packet.ReadQuaternion();
             float _maxHealth = _packet.ReadFloat();
-            
-            GameManager.instance.SpawnEnemy(_id, _position, _rotation, _maxHealth);
+
+            GameManager.instance.SpawnEnemy(_id, _type, _position, _rotation, _maxHealth);
         }
 
         public static void ProjectileSpawn(Packet _packet)

@@ -10,7 +10,15 @@ namespace Multiplayer.Server.Entities
     [RequireComponent(typeof(NavMeshAgent))]
     public class Enemy : Entity
     {
-        private const float Range = 2f;
+        public enum Type
+        {
+            basic,
+            turret
+        }
+
+        public Type enemyType;
+        
+        protected virtual float Range => 2f;
 
         private NavMeshAgent _agent;
         private Transform _target;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Multiplayer.Server.Entities;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ namespace Multiplayer.Server
         public static NetworkManager instance;
 
         public Player playerPrefab;
-        public Enemy enemyPrefab;
+        public Enemy basicEnemyPrefab;
+        public Enemy turretEnemyPrefab;
         public Projectile projectilePrefab;
         public DestructibleBlock destructibleBlockPrefab;
         private void Awake()
@@ -23,22 +25,32 @@ namespace Multiplayer.Server
                 Debug.Log("Instance already exists, destroying object!");
                 Destroy(this);
             }
+
+            enemyPrefabs[Enemy.Type.basic] = basicEnemyPrefab;
+            enemyPrefabs[Enemy.Type.turret] = turretEnemyPrefab;
         }
+        
+        private Dictionary<Enemy.Type, Enemy> enemyPrefabs = new Dictionary<Enemy.Type, Enemy>();
 
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.M))
             {
-                Enemy _enemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
-                _enemy.Initialize(50);
-                ServerSend.Spawn(_enemy);
+                SpawnEnemy(Vector3.zero, Input.GetKeyDown(KeyCode.P) ? Enemy.Type.basic : Enemy.Type.turret);
             }
             
             if (Input.GetKeyDown(KeyCode.O))
             {
                 SpawnDestructibleBlock(Vector3.up);
             }
+        }
+
+        public void SpawnEnemy(Vector3 _position, Enemy.Type _type)
+        {
+            Enemy _enemy = Instantiate(enemyPrefabs[_type], _position, Quaternion.identity);
+            _enemy.Initialize(50);
+            ServerSend.Spawn(_enemy);
         }
 
         public Player InstantiatePlayer()

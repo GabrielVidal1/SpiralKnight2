@@ -9,8 +9,6 @@ namespace Multiplayer.Client.Entities
     {
         [SerializeField] private Slider HealthBar;
 
-        private NavMeshAgent _agent;
-
         protected override void HealthChangeHook()
         {
             HealthBar.value = health / maxHealth;
