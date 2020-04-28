@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Multiplayer.Client;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class UIManager : MonoBehaviour
     public GameObject startMenu;
     public InputField usernameField;
 
+    [SerializeField] private GameObject LocalPlayerTab;
+    
     [SerializeField] private Slider HealthBar;
     [SerializeField] private Text HealthText;
     
@@ -25,11 +28,15 @@ public class UIManager : MonoBehaviour
             Debug.Log("Instance already exists, destroying object!");
             Destroy(this);
         }
+        
+        LocalPlayerTab.SetActive(false);
     }
 
     /// <summary>Attempts to connect to the server.</summary>
     public void ConnectToServer()
     {
+        LocalPlayerTab.SetActive(true);
+
         startMenu.SetActive(false);
         usernameField.interactable = false;
         GameManager.instance.isServer = false;
