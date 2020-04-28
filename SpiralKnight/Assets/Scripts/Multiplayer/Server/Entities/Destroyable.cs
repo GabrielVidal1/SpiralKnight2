@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Multiplayer.Server.Entities
 {
@@ -6,11 +7,11 @@ namespace Multiplayer.Server.Entities
     {
         public int id;
 
-        public void Initialize(int _id)
+        private void Awake()
         {
-            id = _id;
+            id = Server.EntityCount++;
         }
-        
+
         public void Destroy()
         {
             ServerSend.Destroy(this);

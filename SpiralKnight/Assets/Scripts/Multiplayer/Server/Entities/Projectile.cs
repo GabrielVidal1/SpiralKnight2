@@ -44,8 +44,6 @@ namespace Multiplayer.Server.Entities
 
         public void Initialize(Vector3 _position, Vector3 _direction, float _damage, float _speed, bool _ofPlayer)
         {
-            base.Initialize(Server.EntityCount++);
-
             ofPlayer = _ofPlayer;
 
             transform.position = _position;
