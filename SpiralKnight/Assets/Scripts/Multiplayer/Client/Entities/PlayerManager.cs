@@ -12,21 +12,20 @@ namespace Multiplayer.Client.Entities
     
         [SerializeField] private Camera camera;
     
-        public void Initialize(int _id, string _username, bool isLocalPlayer)
+        public void Initialize(int _id, string _username, bool _isLocalPlayer)
         {
-            maxHealth = 100f;
-            
-            base.Initialize(_id);
+            base.Initialize(_id, 100f);
 
             username = _username;
 
-            if (!isLocalPlayer)
-            {
-                Destroy(GetComponent<PlayerController>());
-                Destroy(camera.gameObject);
-            }
-            
-            
+            if (!_isLocalPlayer)
+                MakeRemotePlayer();
+        }
+
+        private void MakeRemotePlayer()
+        {
+            Destroy(GetComponent<PlayerController>());
+            Destroy(camera.gameObject);
         }
 
         protected override void HealthChangeHook()
