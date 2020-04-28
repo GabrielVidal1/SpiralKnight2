@@ -10,20 +10,25 @@ namespace Multiplayer.Server.Entities
     [RequireComponent(typeof(NavMeshAgent))]
     public class Enemy : Entity
     {
-        private const float Range = 2f;
+        public enum Type
+        {
+            basic,
+            turret
+        }
+
+        public virtual Type enemyType => Type.basic;
+        
+        protected virtual float Range => 2f;
 
         private NavMeshAgent _agent;
         private Transform _target;
 
         private bool _attacking;
-
-        private float _speed;
         
         public override void Initialize(float _maxHealth)
         {
             base.Initialize(_maxHealth);
             _agent = GetComponent<NavMeshAgent>();
-            _speed = _agent.speed;
         }
 
         public override void Die()
@@ -68,7 +73,7 @@ namespace Multiplayer.Server.Entities
         {
             _attacking = true;
             yield return new WaitForSeconds(0.5f);
-            base.Attack(direction);
+            Attack(direction);
             yield return new WaitForSeconds(0.5f);
             _attacking = false;
         }

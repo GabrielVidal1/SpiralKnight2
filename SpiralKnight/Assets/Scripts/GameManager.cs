@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, DestroyableManager> destroyables = new Dictionary<int, DestroyableManager>();
     
     public PlayerManager playerPrefab;
-    public EnemyManager enemyPrefab;
+    
+    public EnemyManager basicEnemyPrefab;
+    public EnemyManager turretEnemyPrefab;
 
     public ProjectileManager projectilePrefab;
     public DestructibleBlockManager destructibleBlock;
@@ -37,7 +39,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("Instance already exists, destroying object!");
             Destroy(this);
         }
+
+        _enemyPrefabs[Enemy.Type.basic] = basicEnemyPrefab;
+        _enemyPrefabs[Enemy.Type.turret] = turretEnemyPrefab;
     }
+
+    private readonly Dictionary<Enemy.Type, EnemyManager> _enemyPrefabs = new Dictionary<Enemy.Type, EnemyManager>();
 
 
     /// <summary>Spawns a player.</summary>
@@ -67,11 +74,10 @@ public class GameManager : MonoBehaviour
             Multiplayer.Server.Server.Stop();
     }
 
-    public void SpawnEnemy(int _id, Vector3 _position, Quaternion _rotation, float _maxHealth)
+    public void SpawnEnemy(int _id, Enemy.Type _type, Vector3 _position, Quaternion _rotation, float _maxHealth)
     {
-        EnemyManager _enemy = Instantiate(enemyPrefab, _position, _rotation);
+        EnemyManager _enemy = Instantiate(_enemyPrefabs[_type], _position, _rotation);
         _enemy.Initialize(_id, _maxHealth);
-        
         entities.Add(_id, _enemy);
         destroyables.Add(_id, _enemy);
     }

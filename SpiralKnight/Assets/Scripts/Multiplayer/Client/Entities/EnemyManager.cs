@@ -9,8 +9,6 @@ namespace Multiplayer.Client.Entities
     {
         [SerializeField] private Slider HealthBar;
 
-        private NavMeshAgent _agent;
-
         protected override void HealthChangeHook()
         {
             HealthBar.value = health / maxHealth;
@@ -18,6 +16,8 @@ namespace Multiplayer.Client.Entities
 
         public override void Destroy()
         {
+            GameManager.entities.Remove(id);
+
             Destroy(gameObject);
         }
     }
